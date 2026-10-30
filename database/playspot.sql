@@ -1,0 +1,91 @@
+CREATE DATABASE playspot
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE playspot;
+
+CREATE TABLE ARENA (
+    ID_Arena INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL UNIQUE,
+    CNPJ CHAR(14) NOT NULL UNIQUE,
+    Rua VARCHAR(60) NOT NULL,
+    Numero INT NOT NULL,
+    CEP CHAR(8) NOT NULL UNIQUE,
+    Horario_ini TIME NOT NULL,
+    Horario_fim TIME NOT NULL
+);
+
+
+CREATE TABLE ARENA_TELEFONE (
+    ID_Arena_Telefone INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Arena INT NOT NULL,
+    Telefone CHAR(11) NOT NULL,
+
+    CONSTRAINT fk_arena_telefone
+    FOREIGN KEY (ID_Arena)
+    REFERENCES ARENA(ID_Arena)
+);
+
+
+CREATE TABLE QUADRA (
+    ID_Quadra INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Arena INT NOT NULL,
+    Tipo_piso VARCHAR(30) NOT NULL,
+    Numero INT NOT NULL,
+    Valor_hora DECIMAL(5,2) NOT NULL,
+
+    CONSTRAINT fk_quadra_arena
+    FOREIGN KEY (ID_Arena)
+    REFERENCES ARENA(ID_Arena)
+);
+
+
+CREATE TABLE MODALIDADE (
+    ID_Modalidade INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL UNIQUE
+);
+
+
+CREATE TABLE QUADRA_MODALIDADE (
+    ID_Quadra_Mdl INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Quadra INT NOT NULL,
+    ID_Modalidade INT NOT NULL,
+
+    CONSTRAINT fk_quadra_modalidade_quadra
+    FOREIGN KEY (ID_Quadra)
+    REFERENCES QUADRA(ID_Quadra),
+
+    CONSTRAINT fk_quadra_modalidade_modalidade
+    FOREIGN KEY (ID_Modalidade)
+    REFERENCES MODALIDADE(ID_Modalidade)
+);
+
+
+CREATE TABLE USUARIO (
+    ID_Usuario INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    CPF CHAR(11) NOT NULL UNIQUE,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    Telefone CHAR(11) NOT NULL,
+    Data_nasc DATE NOT NULL,
+    Idade INT NOT NULL
+);
+
+
+CREATE TABLE RESERVA (
+    ID_Reserva INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Quadra INT NOT NULL,
+    ID_Usuario INT NOT NULL,
+    Valor_hora DECIMAL(5,2) NOT NULL,
+    Data DATE NOT NULL,
+    Hora_inicio TIME NOT NULL,
+    Hora_fim TIME NOT NULL,
+
+    CONSTRAINT fk_reserva_quadra
+    FOREIGN KEY (ID_Quadra)
+    REFERENCES QUADRA(ID_Quadra),
+
+    CONSTRAINT fk_reserva_usuario
+    FOREIGN KEY (ID_Usuario)
+    REFERENCES USUARIO(ID_Usuario)
+);
