@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PlaySpot - Perfil da Arena</title>
-   <link rel="stylesheet" href="assets/css/styles.css" />
+   <link rel="stylesheet" href="../assets/css/styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
@@ -18,7 +18,7 @@
           <span class="brand-sub">DETALHES DA ARENA</span>
         </div>
       </div>
-      <a href="../../index.html" class="btn btn-outline"><i class="fa-solid fa-arrow-left"></i> Voltar ao Início</a>
+      <a href="../index.html" class="btn btn-outline"><i class="fa-solid fa-arrow-left"></i> Voltar ao Início</a>
     </div>
   </header>
 
@@ -70,5 +70,32 @@
       <p>&copy; 2026 PlaySpot - Todos os direitos reservados.</p>
     </div>
   </footer>
+  <script>
+    const slotButtons = document.querySelectorAll(".slot-btn.available");
+    slotButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        slotButtons.forEach(function (slot) { slot.classList.remove("selected"); });
+        button.classList.add("selected");
+      });
+    });
+
+    document.getElementById("bookingForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const selectedSlot = document.querySelector(".slot-btn.selected");
+      const date = document.getElementById("bookingDate").value;
+      if (!selectedSlot || !date) {
+        alert("Selecione uma data e um horário disponível.");
+        return;
+      }
+      const reservation = {
+        arena: "Arena Central Franca",
+        date: date,
+        time: selectedSlot.textContent.trim(),
+        price: "R$ 80,00"
+      };
+      localStorage.setItem("playspotLastReservation", JSON.stringify(reservation));
+      window.location.href = "minhas-reservas.html";
+    });
+  </script>
 </body>
 </html>

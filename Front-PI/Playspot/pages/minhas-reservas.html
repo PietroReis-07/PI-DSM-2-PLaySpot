@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlaySpot - Minhas Reservas</title>
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header-content">
+      <div class="logo-container">
+        <div class="logo-icon"><i class="fa-solid fa-running"></i></div>
+        <div class="logo-text">
+          <span class="brand-name">play<span class="brand-accent">Spot</span></span>
+          <span class="brand-sub">ÁREA DO CLIENTE</span>
+        </div>
+      </div>
+      <nav class="nav-menu">
+        <a href="../index.html" class="nav-link">Explorar Arenas</a>
+        <a href="minhas-reservas.html" class="nav-link active">Minhas Reservas</a>
+      </nav>
+      <div class="auth-buttons">
+        <a href="login.html" class="btn btn-outline">Sair</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <section>
+      <div class="section-header">
+        <h3>Minhas Reservas</h3>
+        <a href="../index.html" class="btn btn-primary">
+          <i class="fa-solid fa-plus"></i> Nova Reserva
+        </a>
+      </div>
+      <div class="reservation-list" id="reservationList"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 PlaySpot - Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    const list = document.getElementById("reservationList");
+    const saved = localStorage.getItem("playspotLastReservation");
+    if (saved) {
+      const reservation = JSON.parse(saved);
+      const formattedDate = new Date(reservation.date + "T00:00:00").toLocaleDateString("pt-BR");
+      list.innerHTML = `
+        <article class="reservation-card">
+          <span class="reservation-status"><i class="fa-solid fa-circle-check"></i> Reserva confirmada</span>
+          <h4 style="margin: 8px 0;">${reservation.arena}</h4>
+          <p><i class="fa-solid fa-calendar"></i> ${formattedDate}</p>
+          <p><i class="fa-solid fa-clock"></i> ${reservation.time}</p>
+          <p class="price">Valor: <strong>${reservation.price}</strong></p>
+        </article>`;
+    } else {
+      list.innerHTML = `
+        <article class="reservation-card">
+          <h4>Nenhuma reserva encontrada</h4>
+          <p>Escolha uma arena para fazer sua primeira reserva.</p>
+        </article>`;
+    }
+  </script>
+</body>
+</html>

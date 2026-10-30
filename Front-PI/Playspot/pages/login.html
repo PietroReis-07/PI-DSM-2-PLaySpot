@@ -19,6 +19,18 @@
     </div>
 
     <form class="auth-form" id="loginForm">
+      <fieldset class="login-role">
+        <legend>Entrar como</legend>
+        <label class="role-option">
+          <input type="radio" name="loginRole" value="cliente" checked />
+          <span><i class="fa-solid fa-user"></i><strong>Cliente</strong><small>Reservar arenas</small></span>
+        </label>
+        <label class="role-option">
+          <input type="radio" name="loginRole" value="proprietario" />
+          <span><i class="fa-solid fa-building-user"></i><strong>Proprietário</strong><small>Gerenciar arenas</small></span>
+        </label>
+      </fieldset>
+
       <div class="form-group">
         <label for="loginEmail"><i class="fa-solid fa-envelope"></i> E-mail</label>
         <input type="email" id="loginEmail" placeholder="seuemail@exemplo.com" required />
@@ -50,6 +62,15 @@
       </div>
     </div>
   </div>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const role = document.querySelector('input[name="loginRole"]:checked').value;
+      window.location.href = role === "proprietario"
+        ? "painel-admin.html"
+        : "../index.html";
+    });
+  </script>
 
 </body>
 </html>

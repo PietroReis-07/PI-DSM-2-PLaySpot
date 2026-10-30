@@ -73,6 +73,12 @@
       <p class="auth-switch">Quer reservar uma quadra? <a href="cadastro-usuario.html" class="auth-link">Cadastro para Atletas</a></p>
     </div>
   </div>
+  <script>
+    document.getElementById("registerAdminForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      window.location.href = "painel-admin.html";
+    });
+  </script>
 
 </body>
 </html>

@@ -59,6 +59,12 @@
       <p class="auth-switch">É proprietário de arena? <a href="cadastro-admin.html" class="auth-link">Cadastrar como Proprietário</a></p>
     </div>
   </div>
+  <script>
+    document.getElementById("registerUserForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      window.location.href = "../index.html";
+    });
+  </script>
 
 </body>
 </html>
