@@ -3,19 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PlaySpot - Sistema de Gerenciamento de Arenas</title>
+  <title>PlaySpot - Início</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
 
-  <!-- CABEÇALHO DA APLICAÇÃO -->
+  <!-- CABEÇALHO CLIENTE -->
   <header class="header">
     <div class="container header-content">
       <div class="logo-container">
-        <div class="logo-icon">
-          <i class="fa-solid fa-running"></i>
-        </div>
+        <div class="logo-icon"><i class="fa-solid fa-running"></i></div>
         <div class="logo-text">
           <span class="brand-name">play<span class="brand-accent">Spot</span></span>
           <span class="brand-sub">SISTEMA DE GERENCIAMENTO DE ARENAS</span>
@@ -23,51 +21,42 @@
       </div>
 
       <nav class="nav-menu">
-        <a href="#catalogo" class="nav-link active">Buscar Arenas</a>
-        <a href="#reservas" class="nav-link">Minhas Reservas</a>
-        <a href="#admin" class="nav-link">Painel do Proprietário</a>
+        <a href="index.html" class="nav-link active">Explorar Arenas</a>
+        <a href="assets/pages/login.html" class="nav-link">Minhas Reservas</a>
       </nav>
 
       <div class="auth-buttons">
-        <a href="pages/login.html" class="btn btn-outline" id="btnLogin">Entrar</a>
-        <a href="pages/cadastro-usuario.html" class="btn btn-primary" id="btnRegister">Cadastrar-se</a>
+        <a href="assets/pages/login.html" class="btn btn-outline">Entrar</a>
+        <a href="assets/pages/cadastro-usuario.html" class="btn btn-primary">Cadastrar-se</a>
       </div>
     </div>
   </header>
 
   <main class="container main-content">
-
-    <!-- SEÇÃO UC002: BUSCA FILTRADA -->
+    <!-- BUSCA FILTRADA (UC002) -->
     <section class="search-section">
       <div class="search-card">
         <h2>Encontre a arena perfeita para o seu jogo</h2>
-        <form class="search-form" id="searchForm">
+        <form class="search-form">
           <div class="form-group">
-            <label for="searchQuery"><i class="fa-solid fa-magnifying-glass"></i> Arena</label>
-            <input type="text" id="searchQuery" placeholder="Ex: Arena Franca, PlayBeach..." />
+            <label><i class="fa-solid fa-magnifying-glass"></i> Arena</label>
+            <input type="text" placeholder="Ex: Arena Central..." />
           </div>
-
           <div class="form-group">
-            <label for="filterLocation"><i class="fa-solid fa-location-dot"></i> Localidade</label>
-            <select id="filterLocation">
+            <label><i class="fa-solid fa-location-dot"></i> Localidade</label>
+            <select>
               <option value="">Todas as Cidades</option>
               <option value="Franca, SP">Franca, SP</option>
-              <option value="Ribeirão Preto, SP">Ribeirão Preto, SP</option>
-              <option value="São Paulo, SP">São Paulo, SP</option>
             </select>
           </div>
-
           <div class="form-group">
-            <label for="filterSport"><i class="fa-solid fa-futbol"></i> Modalidade</label>
-            <select id="filterSport">
-              <option value="">Todas as Modalidades</option>
-              <option value="Futebol">Futebol Society</option>
+            <label><i class="fa-solid fa-futbol"></i> Modalidade</label>
+            <select>
+              <option value="">Todas</option>
               <option value="Beach Tennis">Beach Tennis</option>
-              <option value="Vôlei de Praia">Vôlei de Praia</option>
-              <option value="Padel">Padel</option>
+              <option value="Futebol">Futebol Society</option>
             </select>
           </div>
-
           <button type="submit" class="btn btn-primary btn-search">
             <i class="fa-solid fa-filter"></i> Filtrar
           </button>
@@ -75,202 +64,35 @@
       </div>
     </section>
 
-    <!-- LISTAGEM DE ARENAS (CATÁLOGO PÚBLICO) -->
-    <section class="catalog-section" id="catalogo">
+    <!-- LISTAGEM / CATÁLOGO -->
+    <section class="catalog-section">
       <div class="section-header">
         <h3>Arenas Disponíveis</h3>
         <span class="badge">3 encontradas</span>
       </div>
 
       <div class="arena-grid">
-        <!-- Card Arena 1 -->
         <article class="arena-card">
           <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?auto=format&fit=crop&w=600&q=80" alt="Arena Central Franca" />
+            <img src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?auto=format&fit=crop&w=600&q=80" alt="Arena" />
             <span class="card-badge">Beach Tennis</span>
           </div>
           <div class="card-body">
             <h4>Arena Central Franca</h4>
             <p class="location"><i class="fa-solid fa-location-dot"></i> Centro - Franca, SP</p>
             <p class="price">A partir de <strong>R$ 80,00</strong> / hora</p>
-            <button class="btn btn-primary btn-full" onclick="openBookingModal('Arena Central Franca')">
-              Reservar Arena
-            </button>
-          </div>
-        </article>
-
-        <!-- Card Arena 2 -->
-        <article class="arena-card">
-          <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=600&q=80" alt="PlaySociety Club" />
-            <span class="card-badge">Futebol Society</span>
-          </div>
-          <div class="card-body">
-            <h4>PlaySociety Club</h4>
-            <p class="location"><i class="fa-solid fa-location-dot"></i> Estação - Franca, SP</p>
-            <p class="price">A partir de <strong>R$ 120,00</strong> / hora</p>
-            <button class="btn btn-primary btn-full" onclick="openBookingModal('PlaySociety Club')">
-              Reservar Arena
-            </button>
-          </div>
-        </article>
-
-        <!-- Card Arena 3 -->
-        <article class="arena-card">
-          <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=600&q=80" alt="Padel & Beach Spot" />
-            <span class="card-badge">Padel</span>
-          </div>
-          <div class="card-body">
-            <h4>Padel & Beach Spot</h4>
-            <p class="location"><i class="fa-solid fa-location-dot"></i> Jardim Aeroporto - Franca, SP</p>
-            <p class="price">A partir de <strong>R$ 90,00</strong> / hora</p>
-            <button class="btn btn-primary btn-full" onclick="openBookingModal('Padel & Beach Spot')">
-              Reservar Arena
-            </button>
+            <!-- Direciona para o Perfil Detalhado da Arena -->
+            <a href="assets/pages/perfil-arena.html" class="btn btn-primary btn-full">Ver Perfil e Reservar</a>
           </div>
         </article>
       </div>
     </section>
-
-    <!-- PAINEL DO PROPRIETÁRIO (UC003: CRUD ARENA / RN003: EXIGE CNPJ) -->
-    <section class="admin-section hidden" id="admin">
-      <div class="section-header">
-        <h3>Painel do Proprietário - Gerenciar Arenas</h3>
-        <button class="btn btn-secondary" id="btnNewArena">
-          <i class="fa-solid fa-plus"></i> Cadastrar Nova Arena
-        </button>
-      </div>
-
-      <!-- Formulário de Cadastro/Edição de Arena -->
-      <div class="card-form hidden" id="arenaFormCard">
-        <h4>Cadastrar Nova Arena</h4>
-        <form id="arenaForm">
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="arenaName">Nome da Arena *</label>
-              <input type="text" id="arenaName" required placeholder="Ex: Spot Sports" />
-            </div>
-
-            <!-- RN003: Obrigatoriedade de CNPJ para Proprietários -->
-            <div class="form-group">
-              <label for="arenaCNPJ">CNPJ do Proprietário * (RN003)</label>
-              <input type="text" id="arenaCNPJ" required placeholder="00.000.000/0001-00" />
-            </div>
-
-            <div class="form-group">
-              <label for="arenaCity">Localização/Endereço *</label>
-              <input type="text" id="arenaCity" required placeholder="Rua, Bairro - Cidade, UF" />
-            </div>
-
-            <div class="form-group">
-              <label for="arenaSport">Modalidade Esportiva *</label>
-              <select id="arenaSport" required>
-                <option value="Futebol">Futebol</option>
-                <option value="Beach Tennis">Beach Tennis</option>
-                <option value="Vôlei de Praia">Vôlei de Praia</option>
-                <option value="Padel">Padel</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="arenaPrice">Valor por Hora (R$) *</label>
-              <input type="number" id="arenaPrice" step="0.01" required placeholder="100.00" />
-            </div>
-
-            <div class="form-group">
-              <label for="arenaImage">URL da Foto</label>
-              <input type="url" id="arenaImage" placeholder="https://exemplo.com/imagem.jpg" />
-            </div>
-          </div>
-
-          <div class="form-actions">
-            <button type="button" class="btn btn-outline" id="btnCancelArena">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Salvar e Publicar Arena</button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Tabela de Gestão de Arenas -->
-      <div class="table-responsive">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Arena</th>
-              <th>CNPJ</th>
-              <th>Localização</th>
-              <th>Modalidade</th>
-              <th>Valor/h</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Arena Central Franca</strong></td>
-              <td>12.345.678/0001-90</td>
-              <td>Centro - Franca, SP</td>
-              <td>Beach Tennis</td>
-              <td>R$ 80,00</td>
-              <td class="actions-cell">
-                <button class="btn-icon text-edit" title="Editar"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button class="btn-icon text-danger" title="Excluir"><i class="fa-solid fa-trash"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
   </main>
-
-  <!-- MODAL UC001: RESERVA DE ARENA -->
-  <div class="modal-backdrop hidden" id="bookingModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h4 id="modalArenaTitle">Reservar Arena</h4>
-        <button class="btn-close" id="btnCloseModal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <form id="bookingForm">
-          <div class="form-group">
-            <label for="bookingDate">Data da Reserva</label>
-            <input type="date" id="bookingDate" required />
-          </div>
-
-          <!-- RN002: Seleção e Bloqueio de Horários sobrepostos -->
-          <div class="form-group">
-            <label>Horários Disponíveis (RN002)</label>
-            <div class="slots-grid">
-              <button type="button" class="slot-btn available">08:00 - 09:00</button>
-              <button type="button" class="slot-btn available">09:00 - 10:00</button>
-              <button type="button" class="slot-btn occupied" disabled title="Horário Ocupado">10:00 - 11:00</button>
-              <button type="button" class="slot-btn available">14:00 - 15:00</button>
-              <button type="button" class="slot-btn occupied" disabled title="Horário Ocupado">19:00 - 20:00</button>
-              <button type="button" class="slot-btn available">20:00 - 21:00</button>
-            </div>
-          </div>
-
-          <!-- Regra de Negócio: Pagamento presencial na Arena -->
-          <div class="payment-notice">
-            <i class="fa-solid fa-circle-info"></i>
-            <p><strong>Aviso Importante:</strong> O pagamento referente à reserva deverá ser realizado presencialmente na arena.</p>
-          </div>
-
-          <div class="form-actions">
-            <button type="button" class="btn btn-outline" id="btnCancelBooking">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Confirmar Agendamento</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
 
   <footer class="footer">
     <div class="container footer-content">
       <p>&copy; 2026 PlaySpot - Todos os direitos reservados.</p>
-      <p>Desenvolvido para Gestão Integrada de Espaços Esportivos.</p>
     </div>
   </footer>
-
 </body>
 </html>

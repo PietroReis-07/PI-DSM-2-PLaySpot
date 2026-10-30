@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlaySpot - Perfil da Arena</title>
+   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-content">
+      <div class="logo-container">
+        <div class="logo-icon"><i class="fa-solid fa-running"></i></div>
+        <div class="logo-text">
+          <span class="brand-name">play<span class="brand-accent">Spot</span></span>
+          <span class="brand-sub">DETALHES DA ARENA</span>
+        </div>
+      </div>
+      <a href="../../index.html" class="btn btn-outline"><i class="fa-solid fa-arrow-left"></i> Voltar ao Início</a>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <div class="arena-profile-header">
+      <div class="profile-img-container">
+        <img src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?auto=format&fit=crop&w=800&q=80" alt="Arena Central" />
+      </div>
+      <div class="profile-info">
+        <span class="badge">Beach Tennis / Vôlei</span>
+        <h1>Arena Central Franca</h1>
+        <p class="location"><i class="fa-solid fa-location-dot"></i> Rua Major Claudiano, 1200 - Centro, Franca - SP</p>
+        <p class="profile-desc">Estrutura completa com quadras cobertas, iluminação em LED, vestiários equipados e lanchonete integrada.</p>
+        <p class="price">Valor da hora: <strong>R$ 80,00</strong></p>
+      </div>
+    </div>
+
+    <!-- SEÇÃO DE RESERVAS E HORÁRIOS (UC001 & RN002) -->
+    <section class="booking-section-card">
+      <h3>Selecione a Data e Horário para Reserva</h3>
+      <form id="bookingForm" class="booking-grid-form">
+        <div class="form-group">
+          <label for="bookingDate"><i class="fa-solid fa-calendar"></i> Data do Jogo</label>
+          <input type="date" id="bookingDate" required />
+        </div>
+
+        <div class="form-group">
+          <label><i class="fa-solid fa-clock"></i> Horários Disponíveis (Bloqueio de sobreposição - RN002)</label>
+          <div class="slots-grid">
+            <button type="button" class="slot-btn available">08:00 - 09:00</button>
+            <button type="button" class="slot-btn available">09:00 - 10:00</button>
+            <button type="button" class="slot-btn occupied" disabled title="Indisponível">10:00 - 11:00</button>
+            <button type="button" class="slot-btn available">14:00 - 15:00</button>
+          </div>
+        </div>
+
+        <div class="payment-notice">
+          <i class="fa-solid fa-circle-info"></i>
+          <p><strong>Aviso:</strong> O pagamento referente à reserva deverá ser realizado presencialmente na arena.</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">Confirmar Reserva</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 PlaySpot - Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>
