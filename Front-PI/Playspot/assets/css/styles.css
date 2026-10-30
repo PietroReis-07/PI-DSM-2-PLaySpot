@@ -726,3 +726,106 @@ body.auth-page {
     display: none;
   }
 }
+
+
+/* ==========================================
+   MAPA DA ARENA - OPENSTREETMAP
+   ========================================== */
+
+.map-section-card {
+    background-color: var(--color-card-bg);
+    padding: 28px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 32px;
+}
+
+.map-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.map-header h3 {
+    font-size: 20px;
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+.map-header h3 i {
+    color: var(--color-secondary);
+    margin-right: 6px;
+}
+
+.map-header p {
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+.map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: var(--color-secondary);
+    color: #FFFFFF;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.map-link:hover {
+    background-color: var(--color-secondary-hover);
+}
+
+.map-container {
+    width: 100%;
+    height: 320px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+.map-address {
+    margin-top: 14px;
+    color: var(--color-text-muted);
+    font-size: 13px;
+}
+
+.map-address i {
+    color: var(--color-secondary);
+    margin-right: 5px;
+}
+
+/* RESPONSIVIDADE DO MAPA */
+
+@media (max-width: 768px) {
+    .map-section-card {
+        padding: 20px;
+    }
+
+    .map-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .map-container {
+        height: 260px;
+    }
+
+    .map-link {
+        width: 100%;
+        justify-content: center;
+    }
+}
