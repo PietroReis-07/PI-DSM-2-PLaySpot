@@ -71,6 +71,7 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex: 1 1 0;
 }
 
 .logo-icon {
@@ -118,6 +119,7 @@ body {
 .nav-menu {
   display: flex;
   gap: 24px;
+  flex: 0 0 auto;
 }
 
 .nav-link {
@@ -136,6 +138,8 @@ body {
 .auth-buttons {
   display: flex;
   gap: 12px;
+  flex: 1 1 0;
+  justify-content: flex-end;
 }
 
 /* ==========================================================================
@@ -344,21 +348,19 @@ body {
    PERFIL DA ARENA & RESERVA (UC001)
    ========================================================================== */
 .arena-profile-header {
-  background-color: var(--color-card-bg);
-  border-radius: var(--radius-lg);
-  padding: 24px;
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 32px;
-  box-shadow: var(--shadow-md);
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
   margin-bottom: 32px;
-  align-items: center;
+  align-items: stretch;
 }
 
 .profile-img-container {
-  height: 280px;
-  border-radius: var(--radius-md);
+  position: relative;
+  height: 380px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-md);
 }
 
 .profile-img-container img {
@@ -367,10 +369,69 @@ body {
   object-fit: cover;
 }
 
+.gallery-slide {
+  display: none;
+}
+
+.gallery-slide.active {
+  display: block;
+}
+
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background-color: rgba(255, 255, 255, 0.92);
+  color: var(--color-primary);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.gallery-arrow:hover {
+  background-color: #FFFFFF;
+  color: var(--color-secondary);
+}
+
+.gallery-prev { left: 14px; }
+.gallery-next { right: 14px; }
+
+.gallery-counter {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  background-color: rgba(2, 56, 89, 0.75);
+  color: #FFFFFF;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
 .profile-info {
+  background-color: var(--color-card-bg);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 12px;
+}
+
+.profile-info .price {
+  width: 100%;
+  margin: 4px 0 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
 }
 
 .profile-info h1 {
@@ -412,12 +473,14 @@ body {
   font-size: 13px;
   font-weight: 600;
   text-align: center;
+  transition: 0.5s;
 }
 
 .slot-btn.available:hover {
   border-color: var(--color-secondary);
   color: var(--color-secondary);
   background-color: #F8FAFC;
+  
 }
 
 .slot-btn.occupied {
@@ -426,6 +489,106 @@ body {
   border-color: var(--color-border);
   cursor: not-allowed;
   text-decoration: line-through;
+}
+
+.booking-section-card .booking-grid-form {
+  grid-template-columns: minmax(300px, 380px) 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.booking-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.booking-side .payment-notice {
+  margin: 0;
+}
+
+.calendar {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  background-color: #FFFFFF;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.calendar-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.calendar-nav {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background-color: #FFFFFF;
+  color: var(--color-primary);
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.calendar-nav:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+  background-color: #F8FAFC;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-weekday {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding: 4px 0;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--color-text-dark);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.calendar-day:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+  background-color: #F8FAFC;
+}
+
+.calendar-day.today {
+  border-color: var(--color-primary);
+}
+
+.calendar-day.selected,
+.calendar-day.selected:hover {
+  border-color: var(--color-secondary);
+  background-color: var(--color-secondary);
+  color: #FFFFFF;
 }
 
 .payment-notice {
@@ -576,6 +739,37 @@ body.auth-page {
   gap: 16px;
 }
 
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  padding-right: 42px;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-password:hover,
+.toggle-password:focus-visible {
+  color: var(--color-secondary);
+  outline: none;
+}
+
 .auth-options {
   display: flex;
   justify-content: space-between;
@@ -722,7 +916,120 @@ body.auth-page {
   .arena-profile-header {
     grid-template-columns: 1fr;
   }
+  .profile-img-container {
+    height: 260px;
+  }
+  .booking-section-card .booking-grid-form {
+    grid-template-columns: 1fr;
+  }
+  .logo-container,
+  .auth-buttons {
+    flex: 0 1 auto;
+  }
   .nav-menu {
     display: none;
   }
+}
+
+
+/* ==========================================
+   MAPA DA ARENA - OPENSTREETMAP
+   ========================================== */
+
+.map-section-card {
+    background-color: var(--color-card-bg);
+    padding: 28px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 32px;
+}
+
+.map-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.map-header h3 {
+    font-size: 20px;
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+.map-header h3 i {
+    color: var(--color-secondary);
+    margin-right: 6px;
+}
+
+.map-header p {
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+.map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: var(--color-secondary);
+    color: #FFFFFF;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.map-link:hover {
+    background-color: var(--color-secondary-hover);
+}
+
+.map-container {
+    width: 100%;
+    height: 320px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+.map-address {
+    margin-top: 14px;
+    color: var(--color-text-muted);
+    font-size: 13px;
+}
+
+.map-address i {
+    color: var(--color-secondary);
+    margin-right: 5px;
+}
+
+/* RESPONSIVIDADE DO MAPA */
+
+@media (max-width: 768px) {
+    .map-section-card {
+        padding: 20px;
+    }
+
+    .map-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .map-container {
+        height: 260px;
+    }
+
+    .map-link {
+        width: 100%;
+        justify-content: center;
+    }
 }
