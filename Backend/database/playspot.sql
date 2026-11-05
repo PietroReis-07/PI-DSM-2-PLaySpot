@@ -11,6 +11,9 @@ CREATE TABLE ARENA (
     Rua VARCHAR(60) NOT NULL,
     Numero INT NOT NULL,
     CEP CHAR(8) NOT NULL UNIQUE,
+    Cidade VARCHAR(60) NOT NULL,
+    Foto_url VARCHAR(255) NULL,
+    ID_Usuario INT NULL,
     Horario_ini TIME NOT NULL,
     Horario_fim TIME NOT NULL
 );
@@ -66,10 +69,16 @@ CREATE TABLE USUARIO (
     Nome VARCHAR(100) NOT NULL,
     CPF CHAR(11) NOT NULL UNIQUE,
     Email VARCHAR(100) NOT NULL UNIQUE,
+    Senha_hash VARCHAR(255) NOT NULL,
+    Perfil ENUM('CLIENTE','ADMIN') NOT NULL DEFAULT 'CLIENTE',
     Telefone CHAR(11) NOT NULL,
-    Data_nasc DATE NOT NULL,
-    Idade INT NOT NULL
+    Data_nasc DATE NOT NULL
 );
+
+ALTER TABLE ARENA
+    ADD CONSTRAINT fk_arena_usuario
+    FOREIGN KEY (ID_Usuario)
+    REFERENCES USUARIO(ID_Usuario);
 
 
 CREATE TABLE RESERVA (
@@ -80,6 +89,7 @@ CREATE TABLE RESERVA (
     Data DATE NOT NULL,
     Hora_inicio TIME NOT NULL,
     Hora_fim TIME NOT NULL,
+    Status ENUM('CONFIRMADA','CANCELADA') NOT NULL DEFAULT 'CONFIRMADA',
 
     CONSTRAINT fk_reserva_quadra
     FOREIGN KEY (ID_Quadra)
