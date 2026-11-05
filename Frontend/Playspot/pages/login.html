@@ -38,7 +38,12 @@
 
       <div class="form-group">
         <label for="loginPassword"><i class="fa-solid fa-lock"></i> Senha</label>
-        <input type="password" id="loginPassword" placeholder="••••••••" required />
+        <div class="password-field">
+          <input type="password" id="loginPassword" placeholder="••••••••" required />
+          <button type="button" class="toggle-password" id="togglePassword" aria-label="Mostrar senha" aria-pressed="false">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
       </div>
 
       <div class="auth-options">
@@ -63,6 +68,16 @@
     </div>
   </div>
   <script>
+    const passwordInput = document.getElementById("loginPassword");
+    const togglePassword = document.getElementById("togglePassword");
+    togglePassword.addEventListener("click", function () {
+      const show = passwordInput.type === "password";
+      passwordInput.type = show ? "text" : "password";
+      togglePassword.setAttribute("aria-label", show ? "Ocultar senha" : "Mostrar senha");
+      togglePassword.setAttribute("aria-pressed", String(show));
+      togglePassword.querySelector("i").className = show ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
+    });
+
     document.getElementById("loginForm").addEventListener("submit", function (event) {
       event.preventDefault();
       const role = document.querySelector('input[name="loginRole"]:checked').value;
