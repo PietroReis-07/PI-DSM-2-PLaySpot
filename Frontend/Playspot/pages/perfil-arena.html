@@ -9,6 +9,7 @@
   <title>PlaySpot - Perfil da Arena</title>
 
   <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/app.css" />
 
   <link
     rel="stylesheet"
@@ -23,638 +24,135 @@
 
 </head>
 
-<body>
+<body data-nav="index.html">
 
-  <header class="header">
-    <div class="container header-content">
-
-      <div class="logo-container">
-        <div class="logo-icon">
-          <i class="fa-solid fa-running"></i>
-        </div>
-
-        <div class="logo-text">
-          <span class="brand-name">
-            play<span class="brand-accent">Spot</span>
-          </span>
-
-          <span class="brand-sub">DETALHES DA ARENA</span>
-        </div>
-      </div>
-
-      <a href="../index.html" class="btn btn-outline">
-        <i class="fa-solid fa-arrow-left"></i>
-        Voltar ao Início
-      </a>
-
-    </div>
-  </header>
-
+  <header id="siteHeader" class="header"></header>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
 
   <main class="container main-content">
 
-    <!-- PERFIL DA ARENA -->
-    <div class="arena-profile-header">
+    <p id="avisoDono" class="alert alert-error hidden"></p>
+    <p id="pageMsg" class="alert alert-error hidden" role="alert"></p>
+
+    <!-- PERFIL DA ARENA (preenchido pela API) -->
+    <div class="arena-profile-header" id="arenaHeader">
 
       <!-- CARROSSEL DE FOTOS -->
       <div class="profile-img-container" id="arenaGallery">
+        <img class="gallery-slide active" id="gallerySkeleton" alt="Carregando foto" />
 
-        <img
-          class="gallery-slide active"
-          src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?auto=format&fit=crop&w=800&q=80"
-          alt="Arena Central - foto 1"
-        />
-
-        <img
-          class="gallery-slide"
-          src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?auto=format&fit=crop&w=800&q=80"
-          alt="Arena Central - foto 2"
-        />
-
-        <img
-          class="gallery-slide"
-          src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?auto=format&fit=crop&w=800&q=80"
-          alt="Arena Central - foto 3"
-        />
-
-        <button
-          type="button"
-          class="gallery-arrow gallery-prev"
-          id="galleryPrev"
-          aria-label="Foto anterior"
-        >
+        <button type="button" class="gallery-arrow gallery-prev hidden" id="galleryPrev" aria-label="Foto anterior">
           <i class="fa-solid fa-chevron-left"></i>
         </button>
-
-        <button
-          type="button"
-          class="gallery-arrow gallery-next"
-          id="galleryNext"
-          aria-label="Próxima foto"
-        >
+        <button type="button" class="gallery-arrow gallery-next hidden" id="galleryNext" aria-label="Próxima foto">
           <i class="fa-solid fa-chevron-right"></i>
         </button>
-
-        <span class="gallery-counter" id="galleryCounter">
-          1 / 3
-        </span>
-
+        <span class="gallery-counter hidden" id="galleryCounter"></span>
       </div>
-
 
       <!-- INFORMAÇÕES DA ARENA -->
       <div class="profile-info">
-
-        <span class="badge">Beach Tennis / Vôlei</span>
-
-        <h1>Arena Central Franca</h1>
-
-        <p class="location">
-          <i class="fa-solid fa-location-dot"></i>
-          Rua Major Claudiano, 1200 - Centro, Franca - SP
-        </p>
-
-        <p class="profile-desc">
-          Estrutura completa com quadras cobertas, iluminação em LED,
-          vestiários equipados e lanchonete integrada.
-        </p>
-
-        <p class="price">
-          Valor da hora: <strong>R$ 80,00</strong>
-        </p>
-
+        <span class="badge" id="arenaMods">Carregando...</span>
+        <h1 id="arenaNome"></h1>
+        <p class="location"><i class="fa-solid fa-location-dot"></i> <span id="arenaEndereco"></span></p>
+        <p class="location"><i class="fa-solid fa-clock"></i> <span id="arenaHorario"></span></p>
+        <p class="location hidden" id="arenaTelWrap"><i class="fa-solid fa-phone"></i> <span id="arenaTel"></span></p>
+        <p class="profile-desc" id="arenaDesc"></p>
+        <p class="price" id="arenaPreco"></p>
+        <p class="nota-linha" id="arenaNota"></p>
+        <div class="comod" id="arenaComod"></div>
       </div>
-
     </div>
-
-
-    <!-- MAPA DAS ARENAS -->
-    <section class="map-section-card">
-
-      <div class="map-header">
-
-        <div>
-          <h3>
-            <i class="fa-solid fa-map-location-dot"></i>
-            Arenas cadastradas
-          </h3>
-
-          <p>
-            Confira a localização das arenas disponíveis em Franca.
-          </p>
-        </div>
-
-        <a
-          href="https://www.openstreetmap.org/#map=13/-20.538/-47.4"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="map-link"
-        >
-          <i class="fa-solid fa-diamond-turn-right"></i>
-          Ver no mapa
-        </a>
-
-      </div>
-
-
-      <!-- LOCAL ONDE O MAPA SERÁ CARREGADO -->
-      <div class="map-container">
-
-        <div
-          id="mapaArenas"
-          style="width: 100%; height: 420px; min-height: 350px;"
-        ></div>
-
-      </div>
-
-
-      <p id="mapStatus" class="map-address">
-        <i class="fa-solid fa-spinner fa-spin"></i>
-        Carregando arenas...
-      </p>
-
-    </section>
-
 
     <!-- SEÇÃO DE RESERVAS E HORÁRIOS -->
     <section class="booking-section-card">
-
-      <h3>Selecione a Data e Horário para Reserva</h3>
+      <h3>Selecione a Quadra, a Data e o Horário</h3>
 
       <form id="bookingForm" class="booking-grid-form">
 
         <div class="form-group">
+          <label id="lblQuadra"><i class="fa-solid fa-table-cells"></i> Quadra</label>
+          <div id="quadraSelect"></div>
 
-          <label id="calendarLabel">
-            <i class="fa-solid fa-calendar"></i>
-            Data do Jogo
+          <label id="calendarLabel" style="margin-top:14px">
+            <i class="fa-solid fa-calendar"></i> Data do Jogo
           </label>
-
           <input type="hidden" id="bookingDate" />
 
-          <div
-            class="calendar"
-            role="group"
-            aria-labelledby="calendarLabel"
-          >
-
+          <div class="calendar" role="group" aria-labelledby="calendarLabel">
             <div class="calendar-header">
-
-              <button
-                type="button"
-                class="calendar-nav"
-                id="calPrev"
-                aria-label="Mês anterior"
-              >
+              <button type="button" class="calendar-nav" id="calPrev" aria-label="Mês anterior">
                 <i class="fa-solid fa-chevron-left"></i>
               </button>
-
-              <span
-                class="calendar-title"
-                id="calTitle"
-                aria-live="polite"
-              ></span>
-
-              <button
-                type="button"
-                class="calendar-nav"
-                id="calNext"
-                aria-label="Próximo mês"
-              >
+              <span class="calendar-title" id="calTitle" aria-live="polite"></span>
+              <button type="button" class="calendar-nav" id="calNext" aria-label="Próximo mês">
                 <i class="fa-solid fa-chevron-right"></i>
               </button>
-
             </div>
-
             <div class="calendar-grid" id="calGrid"></div>
-
           </div>
-
         </div>
-
 
         <div class="booking-side">
-
           <div class="form-group">
-
-            <label>
-              <i class="fa-solid fa-clock"></i>
-              Horários Disponíveis
-            </label>
-
-            <div class="slots-grid">
-
-              <button type="button" class="slot-btn available">
-                08:00 - 09:00
-              </button>
-
-              <button type="button" class="slot-btn available">
-                09:00 - 10:00
-              </button>
-
-              <button
-                type="button"
-                class="slot-btn occupied"
-                disabled
-                title="Indisponível"
-              >
-                10:00 - 11:00
-              </button>
-
-              <button type="button" class="slot-btn available">
-                14:00 - 15:00
-              </button>
-
+            <label><i class="fa-solid fa-clock"></i> Horários Disponíveis</label>
+            <div class="slots-grid" id="slotsGrid">
+              <p class="slots-empty">Escolha uma data para ver os horários.</p>
             </div>
-
           </div>
 
+          <p class="booking-total hidden" id="bookingTotal"></p>
+          <p id="bookingMsg" class="alert alert-error hidden" role="alert"></p>
 
           <div class="payment-notice">
-
             <i class="fa-solid fa-circle-info"></i>
-
             <p>
               <strong>Aviso:</strong>
-              O pagamento referente à reserva deverá ser realizado
-              presencialmente na arena.
+              O pagamento referente à reserva deverá ser realizado presencialmente na arena.
             </p>
-
           </div>
 
-
-          <button type="submit" class="btn btn-primary btn-full">
-            Confirmar Reserva
-          </button>
-
+          <button type="submit" class="btn btn-primary btn-full" id="btnReservar">Confirmar Reserva</button>
         </div>
-
       </form>
+    </section>
 
+    <section class="booking-section-card" id="avaliacoesSec">
+      <h3><i class="fa-solid fa-star" style="color:#F59E0B"></i> Avaliações</h3>
+      <div id="avaliacoes"><div class="skel"></div></div>
+    </section>
+
+    <!-- MAPA DAS ARENAS -->
+    <section class="map-section-card">
+      <div class="map-header">
+        <div>
+          <h3><i class="fa-solid fa-map-location-dot"></i> Arenas no mapa</h3>
+          <p>Arenas parceiras do PlaySpot (marcador azul) e locais de Franca ainda sem parceria (círculo cinza).</p>
+        </div>
+        
+      </div>
+
+      <div class="map-container">
+        <div id="mapaArenas" style="width: 100%; height: 420px; min-height: 350px;"></div>
+      </div>
+
+      <p id="mapStatus" class="map-address">
+        <i class="fa-solid fa-spinner fa-spin"></i> Carregando arenas...
+      </p>
     </section>
 
   </main>
 
-
   <footer class="footer">
-
     <div class="container footer-content">
-
-      <p>
-        &copy; 2026 PlaySpot - Todos os direitos reservados.
-      </p>
-
+      <p>&copy; 2026 PlaySpot - Todos os direitos reservados.</p>
     </div>
-
   </footer>
 
-
-  <script>
-
-    // ===== GALERIA DE FOTOS =====
-
-    const gallerySlides = document.querySelectorAll(".gallery-slide");
-
-    const galleryCounter = document.getElementById("galleryCounter");
-
-    let galleryIndex = 0;
-
-
-    function showSlide(index) {
-
-      galleryIndex =
-        (index + gallerySlides.length) % gallerySlides.length;
-
-      gallerySlides.forEach(function (slide, i) {
-
-        slide.classList.toggle("active", i === galleryIndex);
-
-      });
-
-      galleryCounter.textContent =
-        (galleryIndex + 1) + " / " + gallerySlides.length;
-
-    }
-
-
-    document.getElementById("galleryPrev").addEventListener(
-      "click",
-      function () {
-        showSlide(galleryIndex - 1);
-      }
-    );
-
-
-    document.getElementById("galleryNext").addEventListener(
-      "click",
-      function () {
-        showSlide(galleryIndex + 1);
-      }
-    );
-
-
-
-    if (gallerySlides.length < 2) {
-
-      document
-        .querySelectorAll(".gallery-arrow, .gallery-counter")
-        .forEach(function (el) {
-          el.classList.add("hidden");
-        });
-
-    } else {
-
-      showSlide(0);
-
-    }
-
-
-
-    const WEEKDAYS = [
-      "Dom",
-      "Seg",
-      "Ter",
-      "Qua",
-      "Qui",
-      "Sex",
-      "Sáb"
-    ];
-
-    const calGrid = document.getElementById("calGrid");
-
-    const calTitle = document.getElementById("calTitle");
-
-    const bookingDateInput =
-      document.getElementById("bookingDate");
-
-    const today = new Date();
-
-    let viewYear = today.getFullYear();
-
-    let viewMonth = today.getMonth();
-
-
-    function pad(n) {
-
-      return String(n).padStart(2, "0");
-
-    }
-
-
-    function toISO(y, m, d) {
-
-      return y + "-" + pad(m + 1) + "-" + pad(d);
-
-    }
-
-
-    function renderCalendar() {
-
-      const monthName = new Date(
-        viewYear,
-        viewMonth,
-        1
-      ).toLocaleDateString("pt-BR", {
-        month: "long",
-        year: "numeric"
-      });
-
-
-      calTitle.textContent =
-        monthName.charAt(0).toUpperCase() +
-        monthName.slice(1);
-
-      calGrid.innerHTML = "";
-
-
-      WEEKDAYS.forEach(function (name) {
-
-        const head = document.createElement("span");
-
-        head.className = "calendar-weekday";
-
-        head.textContent = name;
-
-        calGrid.appendChild(head);
-
-      });
-
-
-      const firstWeekday =
-        new Date(viewYear, viewMonth, 1).getDay();
-
-      const daysInMonth =
-        new Date(viewYear, viewMonth + 1, 0).getDate();
-
-
-      for (let i = 0; i < firstWeekday; i++) {
-
-        calGrid.appendChild(
-          document.createElement("span")
-        );
-
-      }
-
-
-      for (let day = 1; day <= daysInMonth; day++) {
-
-        const iso = toISO(viewYear, viewMonth, day);
-
-        const btn = document.createElement("button");
-
-        btn.type = "button";
-
-        btn.className = "calendar-day";
-
-        btn.textContent = day;
-
-        btn.setAttribute("aria-label", day + " de " + monthName);
-
-
-        if (
-          iso === toISO(
-            today.getFullYear(),
-            today.getMonth(),
-            today.getDate()
-          )
-        ) {
-
-          btn.classList.add("today");
-
-        }
-
-
-        if (iso === bookingDateInput.value) {
-
-          btn.classList.add("selected");
-
-          btn.setAttribute("aria-pressed", "true");
-
-        }
-
-
-        btn.addEventListener("click", function () {
-
-          bookingDateInput.value = iso;
-
-          renderCalendar();
-
-        });
-
-
-        calGrid.appendChild(btn);
-
-      }
-
-    }
-
-
-
-    function changeMonth(delta) {
-
-      viewMonth += delta;
-
-
-      if (viewMonth < 0) {
-
-        viewMonth = 11;
-
-        viewYear--;
-
-      }
-
-
-      if (viewMonth > 11) {
-
-        viewMonth = 0;
-
-        viewYear++;
-
-      }
-
-
-      renderCalendar();
-
-    }
-
-
-    document.getElementById("calPrev").addEventListener(
-      "click",
-      function () {
-        changeMonth(-1);
-      }
-    );
-
-
-    document.getElementById("calNext").addEventListener(
-      "click",
-      function () {
-        changeMonth(1);
-      }
-    );
-
-
-    renderCalendar();
-
-
-
-    // ===== HORÁRIOS =====
-
-    const slotButtons =
-      document.querySelectorAll(".slot-btn.available");
-
-
-    slotButtons.forEach(function (button) {
-
-      button.addEventListener("click", function () {
-
-        button.classList.toggle("selected");
-
-      });
-
-    });
-
-
-    document
-      .getElementById("bookingForm")
-      .addEventListener("submit", function (event) {
-
-        event.preventDefault();
-
-
-        const selectedSlots =
-          document.querySelectorAll(".slot-btn.selected");
-
-        const date =
-          document.getElementById("bookingDate").value;
-
-
-        if (!date) {
-
-          alert("Selecione uma data no calendário.");
-
-          return;
-
-        }
-
-
-        if (selectedSlots.length === 0) {
-
-          alert("Selecione pelo menos um horário disponível.");
-
-          return;
-
-        }
-
-
-        const times = Array.from(selectedSlots).map(
-          function (slot) {
-
-            return slot.textContent.trim();
-
-          }
-        );
-
-
-        const total = 80 * times.length;
-
-
-        const reservation = {
-
-          arena: "Arena Central Franca",
-
-          date: date,
-
-          time: times.join(" | "),
-
-          price: total.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-          })
-
-        };
-
-
-        localStorage.setItem(
-          "playspotLastReservation",
-          JSON.stringify(reservation)
-        );
-
-
-        window.location.href = "minhas-reservas.html";
-
-      });
-
-  </script>
-
-
-  <!-- Mapas -->
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-  </script>
-
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="../js/perfil-arena.js"></script>
   <script src="../js/mapa-arenas.js"></script>
 
 </body>
-
 </html>

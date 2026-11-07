@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PlaySpot - Entrar na Conta</title>
   <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/app.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body class="auth-page">
@@ -19,6 +20,7 @@
     </div>
 
     <form class="auth-form" id="loginForm">
+      <div id="loginMsg" class="alert alert-error hidden" role="alert"></div>
       <fieldset class="login-role">
         <legend>Entrar como</legend>
         <label class="role-option">
@@ -46,14 +48,7 @@
         </div>
       </div>
 
-      <div class="auth-options">
-        <label class="checkbox-label">
-          <input type="checkbox" id="rememberMe" /> Lembrar de mim
-        </label>
-        <a href="#" class="auth-link">Esqueceu a senha?</a>
-      </div>
-
-      <button type="submit" class="btn btn-primary btn-full">
+      <button type="submit" class="btn btn-primary btn-full" id="btnLogin">
         <i class="fa-solid fa-right-to-bracket"></i> Entrar
       </button>
     </form>
@@ -67,25 +62,9 @@
       </div>
     </div>
   </div>
-  <script>
-    const passwordInput = document.getElementById("loginPassword");
-    const togglePassword = document.getElementById("togglePassword");
-    togglePassword.addEventListener("click", function () {
-      const show = passwordInput.type === "password";
-      passwordInput.type = show ? "text" : "password";
-      togglePassword.setAttribute("aria-label", show ? "Ocultar senha" : "Mostrar senha");
-      togglePassword.setAttribute("aria-pressed", String(show));
-      togglePassword.querySelector("i").className = show ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
-    });
-
-    document.getElementById("loginForm").addEventListener("submit", function (event) {
-      event.preventDefault();
-      const role = document.querySelector('input[name="loginRole"]:checked').value;
-      window.location.href = role === "proprietario"
-        ? "painel-admin.html"
-        : "../index.html";
-    });
-  </script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/login.js"></script>
 
 </body>
 </html>

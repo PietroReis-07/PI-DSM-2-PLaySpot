@@ -1,86 +1,69 @@
-
 document.addEventListener('DOMContentLoaded', async () => {
     const elementoMapa = document.getElementById('mapaArenas');
     const statusMapa = document.getElementById('mapStatus');
+    if (!elementoMapa) return;
 
-    if (!elementoMapa) {
-        console.error('Elemento mapaArenas não encontrado no HTML.');
-        return;
-    }
+    const dizer = (texto) => { if (statusMapa) statusMapa.textContent = texto; };
 
-    if (typeof L === 'undefined') {
-        if (statusMapa) {
-            statusMapa.textContent = 'Erro: biblioteca do mapa não foi carregada.';
-        }
-        return;
-    }
+    if (typeof L === 'undefined') return dizer('Erro: biblioteca do mapa não foi carregada.');
+
+    const { api, esc, moeda, raiz } = PlaySpot;
+    const idAtual = Number(new URLSearchParams(location.search).get('id')) || null;
 
     const mapa = L.map('mapaArenas').setView([-20.538, -47.4], 13);
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors',
         maxZoom: 19
     }).addTo(mapa);
 
+    const temCoordenada = (o) =>
+        o.Latitude != null && o.Longitude != null &&
+        Number.isFinite(Number(o.Latitude)) && Number.isFinite(Number(o.Longitude));
+
     try {
-        if (statusMapa) {
-            statusMapa.textContent = 'Carregando arenas...';
-        }
-
-        const resposta = await fetch('http://localhost:3000/api/arenas');
-
-        if (!resposta.ok) {
-            throw new Error(`Erro HTTP: ${resposta.status}`);
-        }
-
-        const dados = await resposta.json();
-
-        // A API retorna as arenas dentro da propriedade "arenas"
-        const arenas = dados.arenas || [];
+        dizer('Carregando arenas...');
+        const [{ arenas }, { arenas: catalogo }] = await Promise.all([api('/arenas'), api('/catalogo')]);
 
         const pontos = [];
-        let quantidade = 0;
+        let parceiras = 0, outras = 0, atual = null;
 
-        arenas.forEach(arena => {
-            if (arena.Latitude == null || arena.Longitude == null) {
-                return;
-            }
-
-            const latitude = Number(arena.Latitude);
-            const longitude = Number(arena.Longitude);
-
-            if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
-                return;
-            }
-
-            const marcador = L.marker([latitude, longitude]).addTo(mapa);
-
-            marcador.bindPopup(`
-                <strong>${String(arena.Nome || 'Arena')}</strong>
-                <p>${String(arena.Endereco_completo || 'Endereço não informado')}</p>
-            `);
-
-            pontos.push([latitude, longitude]);
-            quantidade++;
+        // Arenas parceiras (cadastradas no PlaySpot): marcador azul com link para reservar.
+        arenas.filter(temCoordenada).forEach(a => {
+            const ponto = [Number(a.Latitude), Number(a.Longitude)];
+            L.marker(ponto).addTo(mapa).bindPopup(
+                '<strong>' + esc(a.Nome) + '</strong>' +
+                '<p>' + esc(a.Rua + ', ' + a.Numero) + '</p>' +
+                (a.Preco_minimo != null ? '<p>A partir de ' + esc(moeda(a.Preco_minimo)) + '/h</p>' : '') +
+                '<a href="' + raiz + 'pages/perfil-arena.html?id=' + a.ID_Arena + '">Ver perfil e reservar</a>'
+            );
+            pontos.push(ponto);
+            parceiras++;
+            if (a.ID_Arena === idAtual) atual = ponto;
         });
 
-        if (pontos.length > 0) {
-            mapa.fitBounds(pontos, { padding: [30, 30] });
-        }
+        // Locais do catálogo (ainda não parceiros): círculo cinza.
+        const nomesParceiras = new Set(arenas.map(a => a.Nome.toLowerCase()));
+        catalogo.filter(temCoordenada).filter(c => !nomesParceiras.has(c.Nome.toLowerCase())).forEach(c => {
+            const ponto = [Number(c.Latitude), Number(c.Longitude)];
+            L.circleMarker(ponto, { radius: 8, color: '#64748B', fillColor: '#94A3B8', fillOpacity: 0.8 })
+                .addTo(mapa)
+                .bindPopup(
+                    '<strong>' + esc(c.Nome) + '</strong>' +
+                    '<p>' + esc(c.Endereco_completo) + '</p>' +
+                    '<p><em>Ainda não é parceira do PlaySpot.</em></p>'
+                );
+            pontos.push(ponto);
+            outras++;
+        });
 
-        if (statusMapa) {
-            statusMapa.textContent =
-                `${quantidade} arenas exibidas no mapa.`;
-        }
+        if (atual) mapa.setView(atual, 15);
+        else if (pontos.length) mapa.fitBounds(pontos, { padding: [30, 30] });
 
-        console.log('Arenas carregadas:', quantidade);
-
+        dizer(pontos.length
+            ? parceiras + ' arena(s) parceira(s) e ' + outras + ' local(is) do catálogo no mapa.'
+            : 'Nenhum local com coordenadas cadastradas ainda.');
     } catch (erro) {
         console.error('Erro ao carregar arenas:', erro);
-
-        if (statusMapa) {
-            statusMapa.textContent =
-                'Erro ao carregar as arenas. Verifique o backend e o console.';
-        }
+        dizer('Erro ao carregar o mapa: ' + erro.message);
     }
 });

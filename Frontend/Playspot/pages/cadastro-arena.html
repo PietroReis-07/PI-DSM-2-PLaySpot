@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlaySpot - Cadastrar Arena</title>
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/app.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body data-nav="painel-admin.html">
+  <header id="siteHeader" class="header"></header>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+
+  <main class="container main-content">
+    <form class="form-page" id="form" novalidate>
+      <div class="dash-hero">
+        <div><h1 id="titulo">Cadastrar Nova Arena Esportiva</h1><p class="muted">Preencha as informações para publicar sua arena no PlaySpot.</p></div>
+        <a href="painel-admin.html" class="btn btn-outline"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+      </div>
+      <p id="msg" class="alert alert-error hidden" role="alert"></p>
+
+      <section class="form-section">
+        <h3><span class="num">1</span> Informações básicas</h3>
+        <div class="grid2">
+          <div class="form-group span2" data-campo="nome"><label for="nome">Nome da arena *</label><input id="nome" maxlength="100" placeholder="Ex: Arena Central" /></div>
+          <div class="form-group" data-campo="cnpj"><label for="cnpj">CNPJ da arena *</label><input id="cnpj" inputmode="numeric" maxlength="18" placeholder="00.000.000/0000-00" /></div>
+          <div class="form-group" data-campo="telefone"><label for="telefone">Telefone</label><input id="telefone" type="tel" maxlength="15" placeholder="(16) 3333-4444" /></div>
+          <div class="form-group span2" data-campo="descricao"><label for="descricao">Descrição</label><textarea id="descricao" rows="3" maxlength="1000" placeholder="Fale sobre a estrutura, diferenciais, regras…"></textarea></div>
+        </div>
+        <h4 class="mini" style="margin-top:18px">Localização</h4>
+        <div class="grid3">
+          <div class="form-group" data-campo="cep"><label for="cep">CEP *</label><input id="cep" inputmode="numeric" maxlength="9" placeholder="00000-000" /></div>
+          <div class="form-group" data-campo="rua" style="grid-column:span 1"><label for="rua">Rua *</label><input id="rua" maxlength="100" /></div>
+          <div class="form-group" data-campo="numero"><label for="numero">Número *</label><input id="numero" maxlength="10" /></div>
+        </div>
+        <div class="grid3" style="margin-top:14px">
+          <div class="form-group"><label for="bairro">Bairro</label><input id="bairro" maxlength="60" /></div>
+          <div class="form-group" data-campo="cidade"><label for="cidade">Cidade *</label><input id="cidade" maxlength="60" /></div>
+          <div class="form-group" data-campo="estado"><label for="estado">UF *</label><input id="estado" maxlength="2" placeholder="SP" style="text-transform:uppercase" /></div>
+        </div>
+      </section>
+
+      <section class="form-section" data-campo="modalidades">
+        <h3><span class="num">2</span> Modalidades oferecidas *</h3>
+        <div id="modalidades"></div>
+        <div class="form-group hidden" id="boxOutra" data-campo="modalidadeOutra" style="margin-top:14px;max-width:360px">
+          <label for="modalidadeOutra">Qual outra modalidade?</label><input id="modalidadeOutra" maxlength="40" placeholder="Ex: Padel, Peteca, Futmesa…" />
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h3><span class="num">3</span> Comodidades</h3>
+        <div id="comodidades"></div>
+      </section>
+
+      <section class="form-section" data-campo="fotos">
+        <h3><span class="num">4</span> Galeria de fotos</h3>
+        <div class="dropzone" id="drop" tabindex="0" role="button"><i class="fa-solid fa-cloud-arrow-up"></i>Arraste as fotos aqui ou clique para escolher<br><small>JPG, PNG ou WEBP · até 5 MB cada · máx. 8 fotos</small></div>
+        <input type="file" id="arquivos" accept="image/jpeg,image/png,image/webp" multiple class="hidden" />
+        <div class="previas" id="previas"></div>
+      </section>
+
+      <section class="form-section">
+        <h3><span class="num">5</span> Horários, preços e dias de funcionamento</h3>
+        <div class="form-group" style="max-width:340px" data-campo="duracaoSlot"><label>Duração de cada reserva</label><div id="duracao"></div></div>
+
+        <h4 class="mini" style="margin-top:18px">Horários disponíveis e preço por hora *</h4>
+        <p class="muted" style="margin-bottom:10px">Crie faixas (ex.: Manhã, Noite). Deixe o preço vazio para usar o valor da quadra.</p>
+        <div id="faixas" data-campo="faixas"></div>
+        <button type="button" class="btn btn-outline btn-sm" id="addFaixa"><i class="fa-solid fa-plus"></i> Adicionar faixa</button>
+
+        <h4 class="mini" style="margin-top:22px">Dias da semana com reservas *</h4>
+        <div class="dias" id="dias" data-campo="diasSemana"></div>
+
+        <h4 class="mini" style="margin-top:22px">Períodos sem reservas (feriados, recesso, manutenção)</h4>
+        <div id="bloqueios" data-campo="bloqueios"></div>
+        <button type="button" class="btn btn-outline btn-sm" id="addBloqueio"><i class="fa-solid fa-plus"></i> Bloquear período</button>
+      </section>
+
+      <div class="barra-acoes">
+        <a href="painel-admin.html" class="btn btn-outline">Cancelar</a>
+        <button type="submit" class="btn btn-primary" id="btnSalvar"><i class="fa-solid fa-check"></i> <span id="txtSalvar">Cadastrar arena</span></button>
+      </div>
+    </form>
+  </main>
+
+  <footer class="footer"><div class="container footer-content"><p>&copy; 2026 PlaySpot - Todos os direitos reservados.</p></div></footer>
+  <script src="../js/cadastro-arena.js"></script>
+</body>
+</html>

@@ -1,23 +1,28 @@
 {
-  "name": "backend",
+  "name": "playspot-backend",
   "version": "1.0.0",
-  "description": "Esta pasta separa o backend do frontend e está preparada para receber a implementação da API.",
-  "main": "index.js",
+  "description": "API do PlaySpot - sistema de reserva de arenas esportivas",
+  "main": "src/app.js",
   "scripts": {
-      "start": "node src/app.js",
-      "dev": "nodemon src/app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "db:setup": "node src/scripts/setupDb.js",
+    "geocodificar": "node src/scripts/geocodificarArenas.js"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "engines": { "node": ">=18" },
   "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^18.0.9",
-    "express": "^5.3.0",
-    "mysql2": "^3.24.6"
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "mysql2": "^3.11.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.0"
   }
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlaySpot - Quadras</title>
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/app.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body data-nav="painel-admin.html">
+  <header id="siteHeader" class="header"></header>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <main class="container main-content">
+    <div class="dash-hero">
+      <div><h1 id="titulo">Quadras</h1><p class="muted" id="sub"></p></div>
+      <div style="display:flex;gap:10px"><a href="painel-admin.html" class="btn btn-outline"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+      <button type="button" class="btn btn-primary" id="btnNova"><i class="fa-solid fa-plus"></i> Nova quadra</button></div>
+    </div>
+    <div id="lista"><div class="skel"></div></div>
+  </main>
+  <footer class="footer"><div class="container footer-content"><p>&copy; 2026 PlaySpot - Todos os direitos reservados.</p></div></footer>
+  <script src="../js/gerenciar-quadras.js"></script>
+</body>
+</html>

@@ -1033,3 +1033,99 @@ body.auth-page {
         justify-content: center;
     }
 }
+
+/* ==========================================================================
+   COMPLEMENTOS (integração com a API)
+   ========================================================================== */
+.alert {
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.alert-error { background: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA; }
+.alert-success { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+
+.user-greeting { font-size: 14px; font-weight: 600; color: var(--color-primary); display: inline-flex; align-items: center; gap: 6px; }
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-text-muted);
+  background: var(--color-card-bg);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.card-badge-extra { right: auto; left: 12px; background: var(--color-secondary); }
+
+.calendar-day:disabled { color: #CBD5E1; cursor: not-allowed; background: transparent; }
+
+.form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  resize: vertical;
+}
+.form-group textarea:focus { border-color: var(--color-secondary); }
+.form-group small { color: var(--color-text-muted); font-size: 12px; }
+.form-grid .span-2 { grid-column: 1 / -1; }
+
+.slots-empty { grid-column: 1 / -1; color: var(--color-text-muted); font-size: 13px; }
+
+.booking-total { font-size: 14px; margin: 4px 0; }
+.booking-total strong { color: var(--color-secondary); font-size: 18px; }
+
+.reservation-status.cancelada { color: var(--color-danger); }
+.reservation-card .reservation-actions { margin-top: 12px; }
+.btn-sm { padding: 6px 12px; font-size: 13px; }
+.btn-danger-outline { background: #fff; color: var(--color-danger); border: 1px solid var(--color-danger); }
+.btn-danger-outline:hover { background: #FEF2F2; }
+
+/* Painel do proprietário */
+.admin-arena {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.admin-arena-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: flex-start; }
+.admin-arena-head h4 { color: var(--color-primary); font-size: 18px; }
+.admin-arena-head .meta { font-size: 13px; color: var(--color-text-muted); }
+.admin-arena h5 { margin: 18px 0 8px; font-size: 14px; color: var(--color-text-dark); }
+
+.photo-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.photo-thumb { position: relative; width: 110px; height: 80px; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--color-border); }
+.photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-thumb button {
+  position: absolute; top: 4px; right: 4px; width: 24px; height: 24px;
+  border: none; border-radius: 50%; background: rgba(0,0,0,.65); color: #fff; cursor: pointer; font-size: 12px;
+}
+.photo-thumb button:hover { background: var(--color-danger); }
+
+.tag { display: inline-block; background: #EEF2F7; color: var(--color-primary); border-radius: 20px; padding: 2px 10px; font-size: 12px; font-weight: 600; margin: 0 4px 4px 0; }
+
+.checkbox-row { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.checkbox-row label { display: inline-flex; gap: 6px; align-items: center; font-weight: 500; font-size: 13px; }
+.checkbox-row input { width: auto; }
+
+.quadra-form { background: #F8FAFC; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 14px; margin-top: 10px; }
+.quadra-form .form-grid { grid-template-columns: repeat(3, 1fr); }
+
+.status-pill { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+.status-pill.ok { background: #ECFDF5; color: #047857; }
+.status-pill.cancelada { background: #FEF2F2; color: #B91C1C; }
+
+@media (max-width: 768px) {
+  .quadra-form .form-grid { grid-template-columns: 1fr; }
+}
+
+.data-table td.actions-cell { display: table-cell; white-space: nowrap; }
+.data-table td.actions-cell .btn-icon { margin-right: 10px; }

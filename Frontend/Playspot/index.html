@@ -5,61 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PlaySpot - Início</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/app.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
 
-  <!-- CABEÇALHO CLIENTE -->
-  <header class="header">
-    <div class="container header-content">
-      <div class="logo-container">
-        <div class="logo-icon"><i class="fa-solid fa-running"></i></div>
-        <div class="logo-text">
-          <span class="brand-name">play<span class="brand-accent">Spot</span></span>
-          <span class="brand-sub">SISTEMA DE GERENCIAMENTO DE ARENAS</span>
-        </div>
-      </div>
-
-      <nav class="nav-menu">
-        <a href="index.html" class="nav-link active">Explorar Arenas</a>
-        <a href="pages/minhas-reservas.html" class="nav-link">Minhas Reservas</a>
-      </nav>
-
-      <div class="auth-buttons">
-        <a href="pages/login.html" class="btn btn-outline">Entrar</a>
-        <a href="pages/cadastro-usuario.html" class="btn btn-primary">Cadastrar-se</a>
-      </div>
-    </div>
-  </header>
+  <header id="siteHeader" class="header"></header>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
 
   <main class="container main-content">
     <!-- BUSCA FILTRADA (UC002) -->
-    <section class="search-section">
+    <section class="search-section hero-busca">
       <div class="search-card">
         <h2>Encontre a arena perfeita para o seu jogo</h2>
-        <form class="search-form">
+        <form class="search-form" id="searchForm">
           <div class="form-group">
-            <label><i class="fa-solid fa-magnifying-glass"></i> Arena</label>
-            <input type="text" placeholder="Ex: Arena Central..." />
+            <label for="fNome"><i class="fa-solid fa-magnifying-glass"></i> Arena</label>
+            <input type="text" id="fNome" placeholder="Ex: Arena Central..." maxlength="100" />
           </div>
           <div class="form-group">
-            <label><i class="fa-solid fa-location-dot"></i> Localidade</label>
-            <select>
-              <option value="">Todas as Cidades</option>
-              <option value="Franca, SP">Franca, SP</option>
-            </select>
+            <label id="lblCidade"><i class="fa-solid fa-location-dot"></i> Localidade</label>
+            <div id="fCidade"></div>
           </div>
           <div class="form-group">
-            <label><i class="fa-solid fa-futbol"></i> Modalidade</label>
-            <select>
-              <option value="">Todas</option>
-              <option value="Beach Tennis">Beach Tennis</option>
-              <option value="Futebol">Futebol Society</option>
-            </select>
+            <label id="lblMod"><i class="fa-solid fa-futbol"></i> Modalidade</label>
+            <div id="fModalidade"></div>
           </div>
-          <button type="submit" class="btn btn-primary btn-search">
-            <i class="fa-solid fa-filter"></i> Filtrar
-          </button>
+          <button type="submit" class="btn btn-primary btn-search"><i class="fa-solid fa-filter"></i> Filtrar</button>
         </form>
       </div>
     </section>
@@ -68,23 +41,11 @@
     <section class="catalog-section">
       <div class="section-header">
         <h3>Arenas Disponíveis</h3>
-        <span class="badge">3 encontradas</span>
+        <span class="badge" id="contador">...</span>
       </div>
 
-      <div class="arena-grid">
-        <article class="arena-card">
-          <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?auto=format&fit=crop&w=600&q=80" alt="Arena" />
-            <span class="card-badge">Beach Tennis</span>
-          </div>
-          <div class="card-body">
-            <h4>Arena Central Franca</h4>
-            <p class="location"><i class="fa-solid fa-location-dot"></i> Centro - Franca, SP</p>
-            <p class="price">A partir de <strong>R$ 80,00</strong> / hora</p>
-            <!-- Direciona para o Perfil Detalhado da Arena -->
-            <a href="pages/perfil-arena.html" class="btn btn-primary btn-full">Ver Perfil e Reservar</a>
-          </div>
-        </article>
+      <div class="arena-grid" id="arenaGrid">
+        <div class="skel"></div><div class="skel"></div><div class="skel"></div>
       </div>
     </section>
   </main>
@@ -94,5 +55,6 @@
       <p>&copy; 2026 PlaySpot - Todos os direitos reservados.</p>
     </div>
   </footer>
+  <script src="js/home.js"></script>
 </body>
 </html>

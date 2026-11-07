@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PlaySpot - Cadastro de Atleta</title>
   <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/app.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body class="auth-page">
@@ -19,37 +20,41 @@
     </div>
 
     <form class="auth-form" id="registerUserForm">
+      <div id="msg" class="alert alert-error hidden" role="alert"></div>
       <div class="form-group">
         <label for="userName"><i class="fa-solid fa-user"></i> Nome Completo *</label>
-        <input type="text" id="userName" placeholder="Ex: João Silva" required />
+        <input type="text" id="userName" placeholder="Ex: João Silva" maxlength="100" autocomplete="name" required />
       </div>
 
       <div class="form-group">
         <label for="userEmail"><i class="fa-solid fa-envelope"></i> E-mail *</label>
-        <input type="email" id="userEmail" placeholder="seuemail@exemplo.com" required />
+        <input type="email" id="userEmail" placeholder="seuemail@exemplo.com" maxlength="100" autocomplete="email" required />
       </div>
 
       <div class="form-group">
         <label for="userPhone"><i class="fa-solid fa-phone"></i> Telefone / WhatsApp *</label>
-        <input type="tel" id="userPhone" placeholder="(16) 99999-9999" required />
+        <input type="tel" id="userPhone" placeholder="(16) 99999-9999" autocomplete="tel" required />
       </div>
 
       <div class="form-group">
         <label for="userCPF"><i class="fa-solid fa-id-card"></i> CPF *</label>
-        <input type="text" id="userCPF" placeholder="000.000.000-00" required />
+        <input type="text" id="userCPF" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" required />
       </div>
 
       <div class="form-group">
         <label for="userPassword"><i class="fa-solid fa-lock"></i> Senha *</label>
-        <input type="password" id="userPassword" placeholder="••••••••" required />
+        <div class="password-field">
+          <input type="password" id="userPassword" placeholder="Mínimo 8 caracteres" minlength="8" autocomplete="new-password" required />
+          <button type="button" class="toggle-password" id="togglePassword" aria-label="Mostrar senha" aria-pressed="false"><i class="fa-solid fa-eye"></i></button>
+        </div>
       </div>
 
       <div class="form-group">
         <label for="userConfirmPassword"><i class="fa-solid fa-lock"></i> Confirmar Senha *</label>
-        <input type="password" id="userConfirmPassword" placeholder="••••••••" required />
+        <input type="password" id="userConfirmPassword" placeholder="Repita a senha" autocomplete="new-password" required />
       </div>
 
-      <button type="submit" class="btn btn-primary btn-full">
+      <button type="submit" class="btn btn-primary btn-full" id="btnEnviar">
         Criar Conta de Atleta
       </button>
     </form>
@@ -59,12 +64,9 @@
       <p class="auth-switch">É proprietário de arena? <a href="cadastro-admin.html" class="auth-link">Cadastrar como Proprietário</a></p>
     </div>
   </div>
-  <script>
-    document.getElementById("registerUserForm").addEventListener("submit", function (event) {
-      event.preventDefault();
-      window.location.href = "../index.html";
-    });
-  </script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/cadastro.js"></script>
 
 </body>
 </html>
