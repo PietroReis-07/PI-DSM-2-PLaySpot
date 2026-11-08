@@ -220,7 +220,7 @@
     const ativo = document.body.dataset.nav || arquivoAtual();
     h.className = "header";
     h.innerHTML = '<div class="container header-content">' +
-      '<a class="logo-container" href="' + raiz + 'index.html" aria-label="PlaySpot - início"><div class="logo-icon"><i class="fa-solid fa-running"></i></div>' +
+      '<a class="logo-container" href="' + raiz + 'index.html" aria-label="PlaySpot - início"><div class="logo-icon"><img src="../assets/css/images/Logo.png" alt="Logo PlaySpot" class="logo-icon" /></div>' +
       '<div class="logo-text"><span class="brand-name">play<span class="brand-accent">Spot</span></span><span class="brand-sub">SISTEMA DE GERENCIAMENTO DE ARENAS</span></div></a>' +
       '<nav class="nav-menu">' + links(u).map(([href, t, f]) => '<a href="' + href + '" class="nav-link' + (f === ativo ? " active" : "") + '">' + t + "</a>").join("") + "</nav>" +
       '<div class="auth-buttons">' + (u
